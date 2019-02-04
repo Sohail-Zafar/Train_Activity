@@ -1,0 +1,20 @@
+/* Assignemnt: Train Activity */
+/* File: styles.css */
+/* Programmer: Sohail Zafar */
+
+h1 {
+    text-align: center;
+}
+ 
+#header {
+    background-color: blue;
+}
+
+#trainTable {
+    width: 1300px;
+
+}
+
+th {
+    border-bottom: 2px solid black;
+}
