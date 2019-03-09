@@ -1,3 +1,9 @@
+<!-- Assignemnt: Train Activity 
+     Programmer: Sohail Zafar
+     This is the index.html file for the application. There is also script.js that adds fuctionality to this application.
+     This application use the Firbase database and moment.js to store train data and then calculate train arrvial times.
+     I have redone this apllication. With the help of the soultion file I was able to code the calculated the train time information.-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,10 +11,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Train Time</title>
+    
     <!-- Include Javascript and stylesheet files -->
     <script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
     <link rel="stylesheet" type="text/css" href="styles.css">
+    
+    <!-- Include JQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    <!-- Include Moment JS -->
+     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
 </head>
 <body>
     
@@ -44,7 +56,7 @@
                     </div>
                     
                 <div class="form">
-                    <label for="firstTrainTime">First Train time (HHmm): </label>
+                    <label for="firstTrainTime">First Train Time (HH:mm - military time): </label>
                     <input type="text" id="firstTrainTime" size="35">
                 </div>
 

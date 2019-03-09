@@ -1,6 +1,8 @@
 // Assignment: Train Activity
 // File: script.js
 // Programmer: Sohail Zafar
+// This is the javascript file that adds train information to the Firebase database and use the moment.js to format and calculate train
+// arrival times. It then updates the index.html web page with updated information.
 
   // Initialize Firebase
   var config = {
@@ -24,7 +26,8 @@
       var $destination = $("#destination").val().trim();
       var $firstTrainTime = $("#firstTrainTime").val().trim();
       var $frequency = $("#frequency").val().trim();
-    
+      
+      // Creat trainObject to hold information taken from the form on the index.html page
       var trainObject = {
           trainName: $tName,
           trainDestination: $destination,
@@ -41,11 +44,35 @@
     var dataTrainDestination = dataFromDatabase.val().trainDestination;
     var dataTrainTime = dataFromDatabase.val().trainTime;
     var dataFrequency = dataFromDatabase.val().frequency;
-    console.log(dataFromDatabase.val());
+    
+    // Convert dataTrainTime to moment time format and set up varibles
+    var timeArr = dataTrainTime.split(":");
+    var trainTime = moment()
+      .hours(timeArr[0])
+      .minutes(timeArr[1]);
+    var maxMoment = moment.max(moment(), trainTime);
+    var tMinutes;
+    var tArrival;
+  
+    // If the first train is later than the current time, sent arrival to the first train time
+    if (maxMoment === trainTime) {
+      tArrival = trainTime.format("hh:mm A");
+      tMinutes = trainTime.diff(moment(), "minutes");
+    } else {
+
+      var differenceTimes = moment().diff(trainTime, "minutes");
+      var tRemainder = differenceTimes % dataFrequency;
+      tMinutes = dataFrequency- tRemainder;
+      // To calculate the arrival time, add the tMinutes to the current time
+      tArrival = moment()
+        .add(tMinutes, "m")
+        .format("hh:mm A");
+    }
+    // Add train data and converted time data to the trainTable tbody of the index.html page 
     $("#trainTable > tbody").append("<tr><td>" + dataTrainName + "</td><td>" +
-     dataTrainDestination + "</td><td>" + dataTrainTime + "</td><td>" + dataFrequency +"</td></tr>");
+     dataTrainDestination + "</td><td>" + dataFrequency + "</td><td>" + tArrival +"</td><td>" + tMinutes + "</td></tr>");
      
-     // Clear form values
+     // Clear form  of values
     $("#tName").val("");
     $("#destination").val("");
     $("#firstTrainTime").val("");
