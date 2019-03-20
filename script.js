@@ -15,7 +15,7 @@
   };
   firebase.initializeApp(config);
 
-  // Create varible to hold database object
+  // Create variable to hold database object
   var dBase = firebase.database();
 
   // Submit button click function
